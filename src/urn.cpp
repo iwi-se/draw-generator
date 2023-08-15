@@ -34,9 +34,7 @@ namespace urn
     { 
         if (check == 1 && m_n == 0 && m_k > 0)
         {
-            std::cerr << "UrnOR with n = 0 and k > 0 is not valid, "
-                         "program aborted" << std::endl;
-            std::exit(check);
+            throw std::domain_error("UrnOR with n == 0 and k > 0 is not valid.");
         }
     }
 
@@ -85,9 +83,7 @@ namespace urn
     { 
         if (check == 2 && m_k > m_n)
         {
-            std::cerr << "UrnO with k > n is not valid, "
-                         "program aborted" << std::endl;
-            std::exit(check);
+            throw std::domain_error("UrnO with k > n is not valid.");
         }
         for (uint i { 1 }; i < m_k; ++i)
         {
@@ -128,9 +124,7 @@ namespace urn
     { 
         if (check == 3 && m_n == 0)
         {
-            std::cerr << "UrnR with n = 0 is not valid, "
-                         "program aborted" << std::endl;
-            std::exit(check);
+            throw std::domain_error("UrnR with n = 0 is not valid.");
         }
     }
 
@@ -182,4 +176,3 @@ namespace urn
         return false;
     } 
 }
-

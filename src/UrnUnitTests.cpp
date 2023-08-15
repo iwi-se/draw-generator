@@ -1,4 +1,15 @@
-// UrnUnitTests.cpp by Ulrich Eisenecker, May 17, 2023
+/*! 
+ * \file UrnUnitTests.cpp
+ * \author Ulrich Eisenecker
+ * \date May 17, 2023
+ *  
+ * Test file of the draw generator
+ * 
+ * For the unit tests the framework catch2 was used.
+ * https://github.com/catchorg/Catch2
+ * 
+ * Each test case is named with the identifier of the class it tests.
+ */
 
 #define CATCH_CONFIG_MAIN
 #include <catch2/catch.hpp>
@@ -7,6 +18,12 @@
 #include <iostream>
 #include <string>
 
+
+/*!
+ * \brief Representation of the elements of an urn.
+ * @param [in] UrnOR Exampler of an urn.
+ * \return std::string representation of the elements.
+ */
 std::string to_string(const urn::UrnOR& urn)
 {
    std::string result;

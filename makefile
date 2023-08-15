@@ -1,4 +1,4 @@
-# Makefile for draw-generator, August 10, 2023, Author: Anton Hempel
+# Makefile for draw-generator
 # Commands:
 # Generating executable with: make
 # Delete files and subdirectories with: make clean

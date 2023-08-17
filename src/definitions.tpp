@@ -1,3 +1,11 @@
+/*! 
+ * \file definitions.tpp
+ * \author Ulrich Eisenecker
+ * \date June 14, 2023
+ *  
+ * File of the definitions of the class/function templates
+ */
+
 template <typename T,bool ORDER,bool REPETITION>
 GenericUrn<T, ORDER, REPETITION>::GenericUrn(uint k,const std::vector<T>& elements)
             :m_urn { static_cast<uint>(elements.size()),k },
@@ -32,3 +40,27 @@ template <typename T,bool ORDER,bool REPETITION>
 {
     return m_urn.next();
 }
+
+template <bool O, bool R>
+struct UrnSelector
+{
+    using UrnType = UrnOR;
+};
+
+template<>
+struct UrnSelector<true, false>
+{
+    using UrnType = UrnO;
+};
+
+template <>
+struct UrnSelector<false, true>
+{
+    using UrnType = UrnR;
+};
+
+template <>
+struct UrnSelector<false, false> 
+{
+    using UrnType = Urn;
+};

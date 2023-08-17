@@ -1,0 +1,7 @@
+# ignore ALL files in /obj except .gitkeep
+obj/*
+!/obj/*.gitkeep
+
+# ignore ALL files in /doc except .gitkeep
+doc/*
+!/doc/*.gitkeep

@@ -1,7 +1,7 @@
 # Makefile for draw-generator
 # Commands:
 # Generating executable with: make
-# Delete files and subdirectories with: make clean
+# Delete the files from the obj/ and doc/ subdirectories with : make clean
 # Generating documentation with: make doc
 
 

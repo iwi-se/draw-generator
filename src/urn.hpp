@@ -10,6 +10,11 @@
  * UrnO – urn where the order is important and does not include repetitions.
  * UrnR – urn with unimportant order and with repetitions.
  * Urn – urn with unimportant order and without repetitions.
+ * 
+ * Source:
+ * English: https://www.mathsisfun.com/combinatorics/combinations-permutations.html
+ * 
+ * German: https://www.massmatics.de/merkzettel/#!879:Urnenmodelle 
  */
 
 /*!
@@ -319,6 +324,7 @@ namespace urn
          std::vector<T> m_elements;    /*!< Vector of type T containing the different elements inside the urn. */
    };
 
+   //Attention: The designations given may differ depending on the source.
    template <class T> // According to https://en.wikipedia.org/wiki/Permutation
    using Permutation = GenericUrn<T,true,true>;          /*!< Using decleration as alias for a GenericUrn of UrnType UrnOR. */
 

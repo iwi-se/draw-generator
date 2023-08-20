@@ -18,6 +18,7 @@ The implementations of the urn models are called:
 | Order is important      | $`n^k,¬(n=0∧k=0)∨(n>0)`$             | $`n! \over (n−k)!`$ $`,k≤n`$    |
 | Order is not important  | $`(k+n−1)! \over k!(n−1!)`$ $`,n>0`$ | $`n! \over (n−k)!k!`$ $`, k≤n`$ |
 
+For a deeper explanation of the different urn models, [MathisFun](https://www.mathsisfun.com/combinatorics/combinations-permutations.html) (English) and [MassMatics](https://www.massmatics.de/merkzettel/#!879:Urnenmodelle) (German) can be used.
 
 # Usage
 To include the urn in the code use the include directive `#include "urn.hpp"`

@@ -37,6 +37,9 @@ clean:
 #Delete all files and subdirectories from documentation directory
 	rm -rf doc/*
 
+#Rule 5: Execute UnitTests.cpp
+test:
+	$(OBJDIR)/./UrnUnitTests
 
 .PHONY: doc
 #Rule 6: Calls Doxygen to generate the documentation

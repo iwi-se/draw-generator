@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> dev
 name: C/C++ CI
 
 on:
@@ -24,6 +27,7 @@ jobs:
       run: make
     - name: make test
       run: make test
+<<<<<<< HEAD
 =======
 name: C/C++ CI
 
@@ -50,4 +54,6 @@ jobs:
       run: make
     - name: make test
       run: make test
+>>>>>>> dev
+=======
 >>>>>>> dev

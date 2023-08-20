@@ -2,13 +2,9 @@ name: C/C++ CI
 
 on:
   push:
-    branches:
-    - main
-    - dev/*
+    branches: [ main ]
   pull_request:
-    branches:
-    - main
-    - dev/*
+    branches: [ main ]
 
 jobs:
   build-and-test:
@@ -17,8 +13,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: name install catch2
-      run: sudo apt install catch2 -y
     - name: make
       run: make
     - name: make test

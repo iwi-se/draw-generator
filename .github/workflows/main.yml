@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> dev
 name: C/C++ CI
 
 on:
@@ -27,33 +23,3 @@ jobs:
       run: make
     - name: make test
       run: make test
-<<<<<<< HEAD
-=======
-name: C/C++ CI
-
-on:
-  push:
-    branches:
-    - main
-    - dev/*
-  pull_request:
-    branches:
-    - main
-    - dev/*
-
-jobs:
-  build-and-test:
-  
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v3
-    - name: name install catch2
-      run: sudo apt install catch2 -y
-    - name: make
-      run: make
-    - name: make test
-      run: make test
->>>>>>> dev
-=======
->>>>>>> dev

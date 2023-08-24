@@ -8,29 +8,19 @@
 #include <string>
 #include <type_traits>
 
-std::string to_string(const urn::UrnOR& urn)
-{
-   std::string result;
-   for (urn::uint i { 0 }; i < urn.k(); ++i)
+namespace convert
+{  
+   template<typename T>
+   std::string to_string(const T& s)
    {
-      if (i > 0)
-      {
-         result += " ";
-      }
-      result += std::to_string(urn[i]);
+      return std::to_string(s);
    }
-   return result;
-}
 
-std::string to_string(const std::string& s)
-{
-   return s;
-}
-
-// The following statement is an ugly hack.
-namespace std
-{
-   using ::to_string;
+   template<>
+   std::string to_string(const std::string& s)
+   {  
+      return s;
+   }
 }
 
 template <class T>
@@ -43,7 +33,7 @@ std::string to_string(const T& urn)
       {
          result += " ";
       }
-      result += std::to_string(urn[i]);
+      result += convert::to_string(urn[i]);
    }
    return result;
 }

@@ -323,6 +323,13 @@ TEST_CASE("GenericUrn")
    using namespace urn;
    SECTION("27")
    {
+      REQUIRE_THROWS_AS((GenericUrn<std::string,true,true> { 1,{} }),std::domain_error);
+      REQUIRE_THROWS_WITH((GenericUrn<std::string,true,true> { 1,{} }), "UrnOR with n == 0 and k > 0 is not valid.");
+      REQUIRE_THROWS_AS((Permutation<std::string> { 1,{} }),std::domain_error);
+      REQUIRE_THROWS_WITH((Permutation<std::string> { 1,{} }), "UrnOR with n == 0 and k > 0 is not valid.");
+   }
+   SECTION("28")
+   {
       GenericUrn<std::string,true,true> u { 2,{ "0","1" } };
       Permutation<std::string> u2 { 2,{ "0","1" } };
       REQUIRE(std::is_same_v<decltype(u),decltype(u2)> == true);
@@ -337,7 +344,14 @@ TEST_CASE("GenericUrn")
       REQUIRE(to_string(u) == "1 1");
       REQUIRE(u.next() == false);
    }
-   SECTION("28")
+   SECTION("29")
+   {
+      REQUIRE_THROWS_AS((GenericUrn<std::string,true,false> { 1,{} }),std::domain_error);
+      REQUIRE_THROWS_WITH((GenericUrn<std::string,true,false> { 1,{} }), "UrnO with k > n is not valid.");
+      REQUIRE_THROWS_AS((PartialPermutation<std::string> { 1,{} }),std::domain_error);
+      REQUIRE_THROWS_WITH((PartialPermutation<std::string> { 1,{} }), "UrnO with k > n is not valid.");
+   }
+   SECTION("30")
    {
       GenericUrn<std::string,true,false> u { 3,{ "0","1","2" } };
       PartialPermutation<std::string> u2 { 3,{ "0","1","2" } };
@@ -357,7 +371,14 @@ TEST_CASE("GenericUrn")
       REQUIRE(to_string(u) == "2 1 0");
       REQUIRE(u.next() == false);
    }
-   SECTION("29")
+   SECTION("31")
+   {
+      REQUIRE_THROWS_AS((GenericUrn<std::string,false,true> { 1,{} }),std::domain_error);
+      REQUIRE_THROWS_WITH((GenericUrn<std::string,false,true> { 1,{} }), "UrnR with n = 0 is not valid.");
+      REQUIRE_THROWS_AS((MultiCombination<std::string> { 1,{} }),std::domain_error);
+      REQUIRE_THROWS_WITH((MultiCombination<std::string> { 1,{} }), "UrnR with n = 0 is not valid.");
+   }
+   SECTION("32")
    {
       GenericUrn<std::string,false,true> u { 3,{ "0","1","2" } };
       MultiCombination<std::string> u2 { 3,{ "0","1","2" } };
@@ -385,7 +406,14 @@ TEST_CASE("GenericUrn")
       REQUIRE(to_string(u) == "2 2 2");
       REQUIRE(u.next() == false);
    }
-   SECTION("30")
+   SECTION("33")
+   {
+      REQUIRE_THROWS_AS((GenericUrn<std::string,false,false> { 1,{} }),std::domain_error);
+      REQUIRE_THROWS_WITH((GenericUrn<std::string,false,false> { 1,{} }), "UrnOR with n == 0 and k > 0 is not valid.");
+      REQUIRE_THROWS_AS((Combination<std::string> { 1,{} }),std::domain_error);
+      REQUIRE_THROWS_WITH((Combination<std::string> { 1,{} }), "UrnOR with n == 0 and k > 0 is not valid.");
+   }
+   SECTION("34")
    {
       GenericUrn<std::string,false,false> u { 3,{ "0","1","2","3" } };
       Combination<std::string> u2 { 3,{ "0","1","2","3" } };

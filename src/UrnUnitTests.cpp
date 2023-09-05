@@ -1,15 +1,4 @@
-/*! 
- * \file UrnUnitTests.cpp
- * \author Ulrich Eisenecker
- * \date May 17, 2023
- *  
- * Test file of the draw generator
- * 
- * For the unit tests the framework catch2 was used.
- * https://github.com/catchorg/Catch2
- * 
- * Each test case is named with the identifier of the class it tests.
- */
+// UrnUnitTests.cpp by Ulrich Eisenecker, May 17, 2023
 
 #define CATCH_CONFIG_MAIN
 #include <catch2/catch.hpp>
@@ -17,14 +6,25 @@
 #include "urn.hpp"
 #include <iostream>
 #include <string>
+#include <type_traits>
 
+namespace convert
+{  
+   template<typename T>
+   std::string to_string(const T& s)
+   {
+      return std::to_string(s);
+   }
 
-/*!
- * \brief Representation of the elements of an urn.
- * @param [in] UrnOR Exampler of an urn.
- * \return std::string representation of the elements.
- */
-std::string to_string(const urn::UrnOR& urn)
+   template<>
+   std::string to_string(const std::string& s)
+   {  
+      return s;
+   }
+}
+
+template <class T>
+std::string to_string(const T& urn)
 {
    std::string result;
    for (urn::uint i { 0 }; i < urn.k(); ++i)
@@ -33,7 +33,7 @@ std::string to_string(const urn::UrnOR& urn)
       {
          result += " ";
       }
-      result += std::to_string(urn[i]);
+      result += convert::to_string(urn[i]);
    }
    return result;
 }
@@ -50,9 +50,9 @@ TEST_CASE("UrnOR")
    }
    SECTION("2")
    {
-      //UrnOR u { 0,1 };
-      std::cout << "[UrnOR][2] is not implemented yet" 
-                << std::endl;
+      REQUIRE_THROWS_AS((UrnOR { 0,1 }),std::domain_error);
+      REQUIRE_THROWS_WITH((UrnOR { 0,1 }),
+         "UrnOR with n == 0 and k > 0 is not valid.");
    }
    SECTION("3")
    {
@@ -110,9 +110,9 @@ TEST_CASE("UrnO")
    }
    SECTION("8")
    {
-      //UrnO u { 0,1 };
-      std::cout << "[UrnO][8] is not implemented yet" 
-                << std::endl;
+      REQUIRE_THROWS_AS((UrnO { 0,1 }),std::domain_error);
+      REQUIRE_THROWS_WITH((UrnO { 0,1 }),
+         "UrnO with k > n is not valid.");
    }
    SECTION("9")
    {
@@ -177,9 +177,9 @@ TEST_CASE("UrnR")
    using namespace urn;
    SECTION("14")
    {
-      //UrnR u { 0,1 };
-      std::cout << "[UrnR][15] is not implemented yet" 
-                << std::endl;
+      REQUIRE_THROWS_AS((UrnR { 0,1 }),std::domain_error);
+      REQUIRE_THROWS_WITH((UrnR { 0,1 }),
+         "UrnR with n = 0 is not valid.");
    }
    SECTION("15")
    {
@@ -261,9 +261,9 @@ TEST_CASE("Urn")
    }
    SECTION("21")
    {
-      //Urn u { 0,1 };
-      std::cout << "[Urn][21] is not implemented yet" 
-                << std::endl;
+      REQUIRE_THROWS_AS((Urn { 0,1 }),std::domain_error);
+      REQUIRE_THROWS_WITH((Urn { 0,1 }),
+         "UrnOR with n == 0 and k > 0 is not valid.");
    }
    SECTION("22")
    {
@@ -305,6 +305,91 @@ TEST_CASE("Urn")
    SECTION("26")
    {
       Urn u { 4,3 };
+      REQUIRE(u.n() == 4);
+      REQUIRE(u.k() == 3);
+      REQUIRE(to_string(u) == "0 1 2");
+      REQUIRE(u.next() == true);
+      REQUIRE(to_string(u) == "0 1 3");
+      REQUIRE(u.next() == true);
+      REQUIRE(to_string(u) == "0 2 3");
+      REQUIRE(u.next() == true);
+      REQUIRE(to_string(u) == "1 2 3");
+      REQUIRE(u.next() == false);
+   }
+}
+
+TEST_CASE("GenericUrn")
+{
+   using namespace urn;
+   SECTION("27")
+   {
+      GenericUrn<std::string,true,true> u { 2,{ "0","1" } };
+      Permutation<std::string> u2 { 2,{ "0","1" } };
+      REQUIRE(std::is_same_v<decltype(u),decltype(u2)> == true);
+      REQUIRE(u.n() == 2);
+      REQUIRE(u.k() == 2);
+      REQUIRE(to_string(u) == "0 0");
+      REQUIRE(u.next() == true);
+      REQUIRE(to_string(u) == "0 1");
+      REQUIRE(u.next() == true);
+      REQUIRE(to_string(u) == "1 0");
+      REQUIRE(u.next() == true);
+      REQUIRE(to_string(u) == "1 1");
+      REQUIRE(u.next() == false);
+   }
+   SECTION("28")
+   {
+      GenericUrn<std::string,true,false> u { 3,{ "0","1","2" } };
+      PartialPermutation<std::string> u2 { 3,{ "0","1","2" } };
+      REQUIRE(std::is_same_v<decltype(u),decltype(u2)> == true);
+      REQUIRE(u.n() == 3);
+      REQUIRE(u.k() == 3);
+      REQUIRE(to_string(u) == "0 1 2");
+      REQUIRE(u.next() == true);
+      REQUIRE(to_string(u) == "0 2 1");
+      REQUIRE(u.next() == true);
+      REQUIRE(to_string(u) == "1 0 2");
+      REQUIRE(u.next() == true);
+      REQUIRE(to_string(u) == "1 2 0");
+      REQUIRE(u.next() == true);
+      REQUIRE(to_string(u) == "2 0 1");
+      REQUIRE(u.next() == true);
+      REQUIRE(to_string(u) == "2 1 0");
+      REQUIRE(u.next() == false);
+   }
+   SECTION("29")
+   {
+      GenericUrn<std::string,false,true> u { 3,{ "0","1","2" } };
+      MultiCombination<std::string> u2 { 3,{ "0","1","2" } };
+      REQUIRE(std::is_same_v<decltype(u),decltype(u2)> == true);
+      REQUIRE(u.n() == 3);
+      REQUIRE(u.k() == 3);
+      REQUIRE(to_string(u) == "0 0 0");
+      REQUIRE(u.next() == true);
+      REQUIRE(to_string(u) == "0 0 1");
+      REQUIRE(u.next() == true);
+      REQUIRE(to_string(u) == "0 0 2");
+      REQUIRE(u.next() == true);
+      REQUIRE(to_string(u) == "0 1 1");
+      REQUIRE(u.next() == true);
+      REQUIRE(to_string(u) == "0 1 2");
+      REQUIRE(u.next() == true);
+      REQUIRE(to_string(u) == "0 2 2");
+      REQUIRE(u.next() == true);
+      REQUIRE(to_string(u) == "1 1 1");
+      REQUIRE(u.next() == true);
+      REQUIRE(to_string(u) == "1 1 2");
+      REQUIRE(u.next() == true);
+      REQUIRE(to_string(u) == "1 2 2");
+      REQUIRE(u.next() == true);
+      REQUIRE(to_string(u) == "2 2 2");
+      REQUIRE(u.next() == false);
+   }
+   SECTION("30")
+   {
+      GenericUrn<std::string,false,false> u { 3,{ "0","1","2","3" } };
+      Combination<std::string> u2 { 3,{ "0","1","2","3" } };
+      REQUIRE(std::is_same_v<decltype(u),decltype(u2)> == true);
       REQUIRE(u.n() == 4);
       REQUIRE(u.k() == 3);
       REQUIRE(to_string(u) == "0 1 2");

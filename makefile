@@ -1,7 +1,7 @@
 # Makefile for draw-generator
 # Commands:
 # Generating executable with: make
-# Delete files and subdirectories with: make clean
+# Delete the files from the obj/ and doc/ subdirectories with : make clean
 # Generating documentation with: make doc
 
 
@@ -37,6 +37,9 @@ clean:
 #Delete all files and subdirectories from documentation directory
 	rm -rf doc/*
 
+#Rule 5: Execute UnitTests.cpp
+test:
+	$(OBJDIR)/./UrnUnitTests
 
 .PHONY: doc
 #Rule 6: Calls Doxygen to generate the documentation

@@ -1,5 +1,5 @@
 # General
-Author: [Ulrich Eisenecker](https://www.wifa.uni-leipzig.de/personenprofil/mitarbeiter/prof-dr-ulrich-eisenecker), Anton Hempel, Janik Eriksson
+Author: [Ulrich Eisenecker](https://www.wifa.uni-leipzig.de/personenprofil/mitarbeiter/prof-dr-ulrich-eisenecker), Anton Hempel
 
 The Draw-generator is an implementation for permutation and combinatorics in C++. These are represented by a simplified model based on an urn. 
 Three main concepts are used: Urn, Balls, and Draw are used. 

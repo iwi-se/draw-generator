@@ -696,7 +696,8 @@ namespace urn
                     Iterator operator+(const difference_type& n) const;
 
                     /*!
-                     * \brief Operator for addition (outside class definition). 
+                     * \brief Operator for addition (outside class definition).
+                     * Implemented in the hpp to keep it simple 
                      * \return Returns the sum of iterator and difference type n. 
                      */
                     friend Iterator operator+(const typename GenericUrn<T,ORDER,REPETITION>::Iterator::difference_type& n, const typename GenericUrn<T,ORDER,REPETITION>::Iterator::Iterator& other)
